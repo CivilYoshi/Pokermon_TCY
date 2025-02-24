@@ -220,6 +220,126 @@ local guzzlord = {
 -- Poipole 803
 -- Naganadel 804
 -- Stakataka 805
+local stakataka = {
+    name = "stakataka",
+    pos = {x = 12, y = 8},
+    soul_pos = {x = 13, y = 8},
+    config = {extra = {
+        chips = 0,          -- Tracks chip gains
+        Xmult = 0.17,       -- X mult gained per prime number
+        prime_count = 0,    -- Tracks how many prime numbers match deck size
+        next_prime = 0      -- Tracks the next prime number beyond current deck size
+    }},
+    loc_vars = function(self, info_queue, center)
+        type_tooltip(self, info_queue, center)
+        
+        return {vars = {
+            center.ability.extra.Xmult,      -- #1 X mult per prime number
+            center.ability.extra.prime_count, -- #2 count of prime numbers
+            center.ability.extra.chips,      -- #3 current Chips
+            1 + (center.ability.extra.prime_count * center.ability.extra.Xmult), -- #4 total X mult
+            center.ability.extra.next_prime  -- #5 next prime number target
+        }}
+    end,
+    rarity = "poke_ultrabeast",
+    cost = 9,
+    stage = "Ultra Beast",
+    ptype = "Earth",
+    atlas = "Pokedex7",
+    blueprint_compat = true,
+    -- Predefined list of prime numbers up to 700
+    primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 
+    73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 
+    179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 
+    283, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397, 401, 409, 
+    419, 421, 431, 433, 439, 443, 449, 457, 461, 463, 467, 479, 487, 491, 499, 503, 509, 521, 523, 541, 
+    547, 557, 563, 569, 571, 577, 587, 593, 599, 601, 607, 613, 617, 619, 631, 641, 643, 647, 653, 659, 
+    661, 673, 677, 683, 691, 697},
+    
+    -- Find the next prime after a given number
+    find_next_prime = function(self, current_size)
+        for _, prime in ipairs(self.primes) do
+            if prime > current_size then
+                return prime
+            end
+        end
+        -- If no next prime is found in our list, return the last one + 2
+        -- (just a placeholder, as we might have reached the end of our list)
+        return self.primes[#self.primes] + 2
+    end,
+    
+    calculate = function(self, card, context)
+        -- Calculate prime-related bonuses at the beginning of scoring
+        if context.cardarea == G.jokers and context.scoring_hand and context.before and not context.blueprint then
+            -- Reset counts
+            card.ability.extra.prime_count = 0
+            local prime_sum = 0
+            local deck_size = #G.playing_cards
+            
+            -- Find the next prime beyond current deck size
+            card.ability.extra.next_prime = self:find_next_prime(deck_size)
+            
+            -- Check for prime numbers less than or equal to the deck size
+            for _, prime in ipairs(self.primes) do
+                if prime <= deck_size then
+                    card.ability.extra.prime_count = card.ability.extra.prime_count + 1
+                    prime_sum = prime_sum + prime
+                end
+            end
+            
+            -- Update chips based on cumulative sum of relevant primes
+            card.ability.extra.chips = prime_sum
+        end
+        
+        -- Apply effects when scoring
+        if context.cardarea == G.jokers and context.scoring_hand and context.joker_main then
+            if card.ability.extra.prime_count > 0 then
+                local xmult_bonus = 1 + (card.ability.extra.prime_count * card.ability.extra.Xmult)
+                
+                return {
+                    message = localize("poke_boost_ex"),
+                    colour = G.C.ULTRA,
+                    Xmult_mod = xmult_bonus,
+                    chip_mod = card.ability.extra.chips,
+                    card = card
+                }
+            end
+        end
+    end,
+    update = function(self, card, dt)
+        if G.STAGE == G.STAGES.RUN then
+            -- Only update periodically to reduce performance impact
+            card.ability.update_timer = (card.ability.update_timer or 0) + dt
+            if card.ability.update_timer < 0.5 then return end
+            card.ability.update_timer = 0
+            
+            if G.playing_cards then
+                -- Reset counts
+                local prime_count = 0
+                local prime_sum = 0
+                local deck_size = #G.playing_cards
+                
+                -- Find the next prime beyond current deck size
+                card.ability.extra.next_prime = self:find_next_prime(deck_size)
+                
+                -- Check for prime numbers less than or equal to the deck size
+                for _, prime in ipairs(self.primes) do
+                    if prime <= deck_size then
+                        prime_count = prime_count + 1
+                        prime_sum = prime_sum + prime
+                    end
+                end
+                
+                -- Only update if values have changed
+                if prime_count ~= card.ability.extra.prime_count or prime_sum ~= card.ability.extra.chips then
+                    card.ability.extra.prime_count = prime_count
+                    card.ability.extra.chips = prime_sum
+                end
+            end
+        end
+    end
+}
+
 -- Blacephalon 806
 local blacephalon = {
    name = "blacephalon",
@@ -323,5 +443,5 @@ local blacephalon = {
 -- Melmetal 809
 -- Grookey 810
 return {name = "Pokemon Jokers 781-810", 
-        list = {xurkitree, guzzlord, blacephalon},
+        list = {xurkitree, guzzlord, stakataka, blacephalon},
 }

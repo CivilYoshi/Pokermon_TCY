@@ -2678,6 +2678,16 @@ return {
 					"{C:inactive}(Currently: {X:mult,C:white}X#4#{}, {C:mult}+#5#{}, {C:chips}+#6#{})"
 				}
 			},
+			j_poke_stakataka = {
+				name = 'Stakataka',
+				text = {
+					"Stacks {C:chips}Chips{} and {X:mult,C:white}X{} Mult for every",
+					"{C:attention}prime number{} up to your maximum deck size",
+					"{br:3}text needs to be here to work",
+					"Next prime number: {C:attention}#5#{}",
+					"{C:inactive}(Currently: {}{C:chips}+#3#{} Chips, {X:mult,C:white}X#4#{}{C:inactive}){}"
+				}
+			},
 			j_poke_blacephalon = {
 				name = "Blacephalon",
 				text = {
