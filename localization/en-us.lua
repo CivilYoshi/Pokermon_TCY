@@ -2674,7 +2674,7 @@ return {
 					"{C:dark}Guzzlord consumes everything in its path...{}",
 					"{C:green}#1# in #2#{} chance to eat bought Jokers for {X:mult,C:white}+X0.29{} Mult",
 					"{C:green}#1# in #2#{} chance to eat bought Consumables for {C:mult}+3{} Mult",
-					"{C:green}#1# in #3#{} chance to eat discarded cards for {C:chips}+13{} Chips",
+					"{C:green}#1# in #3#{} chance to eat discarded cards for {C:chips}+9{} Chips",
 					"{C:inactive}(Currently: {X:mult,C:white}X#4#{}, {C:mult}+#5#{}, {C:chips}+#6#{})"
 				}
 			},
