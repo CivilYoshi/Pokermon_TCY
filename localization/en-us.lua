@@ -2120,6 +2120,27 @@ return {
                     "your deck and draw it to {C:attention}Hand",
                 } 
             },
+			j_poke_lugia = {
+					name = 'Lugia',
+					text = {
+						"When blind is selected, remove one",
+						"energy from leftmost {X:fire,C:white}Fire{}, {X:lightning}Lightning{},",
+						"and {X:water,C:white}Water{} Joker",
+						"{br:4}text needs to be here to work",
+						"Gains {X:red,C:white}X4{} Mult for every {C:mult}3{} energy removed",
+						"{C:inactive}(Currently: {X:red,C:white}X#3#{}{C:inactive} Mult{}, {C:attention}#2#{} {C:inactive}Energy removed){}"
+					}
+				},
+			j_poke_hooh = {
+				name = "Ho-oh",
+				text = {
+					"On {C:attention}first hand of round{}:",
+					"If all {C:attention}4 suits{} present, leftmost",
+					"card gains {C:dark_edition}Polychrome{} and {C:attention}seal{}",
+					"{br:4}text needs to be here to work",
+					"{X:mult,C:white}X#1#{} Mult per {C:dark_edition}Polychrome{} card in scored hand"
+				}
+			},
             j_poke_treecko = {
                 name = "Treecko",
                 text = {
@@ -2250,6 +2271,38 @@ return {
                     "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)"
                 }
             },
+			j_poke_trapinch = {
+				name = 'Trapinch',
+				text = {
+					"{X:mult,C:white}X#1#{} Mult",
+					"{br:3}text needs to be here to work",
+					"{C:diamonds}Diamond{} cards in hand are automatically",
+					"selected and cannot be deselected",
+					"{C:inactive}(Evolves after {C:attention}#2#{}{C:inactive} rounds)"
+				} 
+			},
+			j_poke_vibrava = {
+				name = 'Vibrava',
+				text = {
+					"{C:mult}+#1#{} Mult",
+					"{br:3}text needs to be here to work",
+					"First {C:diamonds}Diamond{} card scored each round",
+					"grants {C:chips}+1{} hand",
+					"{C:inactive}(Evolves after scoring {C:attention}#2#/25{}{C:inactive} {C:diamonds}Diamond{}{C:inactive} cards)"
+				}
+			},
+			j_poke_flygon = {
+				name = 'Flygon',
+				text = {
+					"First {C:diamonds}Diamond{} card scored per round",
+					"is enhanced",
+					"First {C:diamonds}Diamond{} card scored per round",
+					"grants {C:chips}+1{} hand",
+					"{br:3}text needs to be here to work",
+					"{X:mult,C:white}X0.1{} Mult per enhanced {C:diamonds}Diamond{} card in deck",
+					"{C:inactive}(Currently {X:mult,C:white}X#2#{}{C:inactive} Mult)"
+				}
+			},
             j_poke_feebas = {
                 name = 'Feebas',
                 text = {
@@ -2282,6 +2335,41 @@ return {
                   "sets money to {C:money}$0"
                 }
             },
+			j_poke_spheal = {
+				name = "Spheal",
+				text = {
+					"{C:chips}+#1#{} Chips and {C:mult}+#2#{} Mult",
+					"{br:2}text needs to be here to work",
+					"When a {C:attention}Glass{} card is scored:", 
+					"Gain {C:chips}+4{} Chips and {C:mult}+2{} Mult with a",
+					"{C:attention}Chance{} to halve {C:chips}Chips{} and {C:mult}Mult{}", 
+					"{C:inactive,s:0.8}(Evolves after playing {C:attention,s:0.8}#3#{}{C:inactive,s:0.8}/2 Glass cards){}"
+				}
+			},
+			j_poke_sealeo = {
+				name = "Sealeo",
+				text = {
+					"{C:chips}+#1#{} Chips and {C:mult}+#2#{} Mult",
+					"{br:2}text needs to be here to work",
+					"When a {C:attention}Glass{} card is scored:", 
+					"Gain {C:chips}+8{} Chips and {C:mult}+4{} Mult with a",
+					"{C:attention}Chance{} to halve {C:chips}Chips{} and {C:mult}Mult{}",
+					"{C:inactive,s:0.8}(Evolves after playing {C:attention,s:0.8}#3#{}{C:inactive,s:0.8}/8 Glass cards){}"
+				}
+			},
+			j_poke_walrein = {
+				name = "Walrein",
+				text = {
+					"{C:chips}+#1#{} Chips and {C:mult}+#2#{} Mult",
+					"{br:2}text needs to be here to work",
+					"When a {C:attention}Glass{} card is scored:", 
+					"Gain {C:chips}+12{} Chips and {C:mult}+6{} Mult with a",
+					"{C:attention}Chance{} to halve {C:chips}Chips{} and {C:mult}Mult",
+					"{br:2}text needs to be here to work",
+					"{X:mult,C:white}X#5#{} Mult per {C:attention}Glass{} card scored",
+					"{C:inactive}(Currently {X:mult,C:white}X#6#{C:inactive} Mult)"
+				}
+			},
             j_poke_beldum = {
                 name = 'Beldum',
                 text = {
@@ -2569,6 +2657,40 @@ return {
                   "{C:inactive}(#3#){}"
                 }
             },
+			j_poke_xurkitree = {
+				name = "Xurkitree",
+				text = {
+					"{C:attention}Steel{} cards in hand give {C:money}$#1#{}",
+					"{C:attention}Gold{} cards in hand give {X:mult,C:white}X#2#{} Mult",
+					"{br:3}text needs to be here to work",
+					"Increase Mult by {X:mult,C:white}X1{} for every",
+					"{C:attention}Steel{} and {C:attention}Gold{} card pair in your hand",
+					"{C:inactive}(Currently: {X:mult,C:white}X#3#{})"
+				}
+			},
+			j_poke_guzzlord = {
+				name = "Guzzlord",
+				text = {
+					"{C:dark}Guzzlord consumes everything in its path...{}",
+					"{C:green}#1# in #2#{} chance to eat bought Jokers for {X:mult,C:white}+X0.29{} Mult",
+					"{C:green}#1# in #2#{} chance to eat bought Consumables for {C:mult}+3{} Mult",
+					"{C:green}#1# in #3#{} chance to eat discarded cards for {C:chips}+13{} Chips",
+					"{C:inactive}(Currently: {X:mult,C:white}X#4#{}, {C:mult}+#5#{}, {C:chips}+#6#{})"
+				}
+			},
+			j_poke_blacephalon = {
+				name = "Blacephalon",
+				text = {
+					"{C:mult}+1{} discard", 
+					"Cards discarded this {c:attention}Ante{} stack {C:mult}+3{} Mult",
+					"{br:3}text needs to be here to work",
+					"If {C:attention}leftmost{} joker:", 
+					"{C:mult}+#1#{} Mult, gains {X:mult,C:white}X0.67{} Mult, and becomes debuffed",
+					"{br:3}text needs to be here to work",
+					"{C:attention}Resets{} debuffed state and {C:mult}Mult{} each ante",
+					"{C:inactive}(Currently: {X:mult,C:white}X#2#{})"
+				}
+			},
             j_poke_yamper = {
                 name = 'Yamper',
                 text = {
@@ -2804,6 +2926,14 @@ return {
                 text = {
                     "Create a random",
                     "{C:attention}Stage 2 Joker{} card",
+                    "{C:inactive}(Must have room)"
+                },
+            },
+			c_poke_beastball = {
+                name = "Beastball",
+                text = {
+                    "Create a random",
+                    "{C:attention}Ultra Beast Joker{} card",
                     "{C:inactive}(Must have room)"
                 },
             },
@@ -3068,6 +3198,13 @@ return {
                     "that has {C:attention}Evolved{} twice"
                 }
             },
+			ultrabeast = {
+                name = "Ultra Beast",
+                text = {
+                    "A Pokemon Joker",
+                    "that is from another {C:attention}Dimension{}"
+                }
+            },	
             energy = {
                 name = "Energy Used",
                 text = {
@@ -3280,6 +3417,14 @@ return {
                     "or certain {C:attention}Pokeball Items{}"
                 } 
             },
+			ultrabeastdesc = {
+                name = "Ultra Beast",
+                text = {
+                    "Can only be obtained",
+                    "through certain {C:attention}Pokeball Items{}"
+                } 
+            },
+
 
             --this key is extremely cursed xd
             poke_pink_seal_seal = {
@@ -3478,7 +3623,10 @@ return {
             k_poke_pocket_pack = "Pocket Pack",
 
             k_poke_safari = "Safari",
+			k_poke_ultrabeast = "Ultra Beast",
             k_poke_mega = "Mega",
+			k_plus_hand = "+1 Hand",
+			k_enhance = "Enhanced!",
 
             b_save = "SAVE",
             b_energy_cards = "Energy Cards",
@@ -3570,6 +3718,14 @@ return {
             poke_disguise_broken = "Disguise Broken! Death Not Prevented!",
             poke_dig_ex = "Dig!",
             poke_blazekick_ex = "Blaze Kick!",
+            poke_energy_drain = "Energy -1",
+			poke_energy_absorb = "Absorb!",
+            poke_sacred_fire_ex = "Sacred Fire!",
+			-- From spheal line
+			poke_rollout_ex = "Rollout!",
+			poke_miss_ex = "Miss...",
+			poke_boost_ex = "Beast Boost!",
+			poke_consume_ex = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             poke_darts_ex = "Darts!",
             poke_none = "None",
             poke_dawn_info1 = "(Next hand played sets hand type)",
@@ -3602,6 +3758,7 @@ return {
 
             k_poke_safari = "Safari",
             k_poke_mega = "Mega",
+			k_poke_ultrabeast = "Ultra Beast",
         },
         v_dictionary = {
             

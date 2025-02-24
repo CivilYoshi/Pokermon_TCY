@@ -286,5 +286,6 @@ function loc_colour(_c, _default)
   G.ARGS.LOC_COLOURS["pink"] = HEX("FF7ABF")
   G.ARGS.LOC_COLOURS["item"] = HEX("9AA4B7")
   G.ARGS.LOC_COLOURS["safari"] = HEX("F2C74E")
+  G.ARGS.LOC_COLOURS["ultrabeast"] = HEX("2834AC")
   return pokecolors(_c, _default)
 end

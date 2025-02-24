@@ -59,7 +59,205 @@ local blissey={
 -- Pupitar 247
 -- Tyranitar 248
 -- Lugia 249
+local lugia = {
+  name = "lugia",
+  pos = {x = 0, y = 10},
+  soul_pos = { x = 1, y = 10},
+  config = {extra = {
+    Xmult = 1.0,
+	Xmult_mod = 4,
+    energy_removed = 0,
+    energy_threshold = 3
+  }},
+  loc_vars = function(self, info_queue, center)
+    type_tooltip(self, info_queue, center)
+    -- Calculate current X multiplier based on removed energy
+    local current_mult = 1 + math.floor(center.ability.extra.energy_removed / center.ability.extra.energy_threshold) * center.ability.extra.Xmult_mod
+    return {vars = {
+      center.ability.extra.energy_threshold,
+      center.ability.extra.energy_removed,
+      current_mult
+    }}
+  end,
+  rarity = 4, -- Legendary
+  cost = 20,
+  stage = "Legendary",
+  ptype = "Psychic",
+  atlas = "Pokedex2", 
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    -- Check if a blind is being selected (transitions to shop round)
+    if context.setting_blind and not context.blueprint then
+      local energy_removed = 0
+      local affected_types = {"Fire", "Lightning", "Water"}
+      
+      -- Look for jokers with these types
+      for _, joker_type in ipairs(affected_types) do
+        local type_jokers = find_pokemon_type(joker_type)
+        
+        -- Take energy from leftmost of each type
+        for _, target_joker in ipairs(type_jokers) do
+          if target_joker ~= card and 
+             target_joker.ability.extra and 
+             (target_joker.ability.extra.energy_count or 0) + (target_joker.ability.extra.c_energy_count or 0) > 0 then
+            
+            -- Store the current energy counts before decreasing
+            local prev_energy_count = target_joker.ability.extra.energy_count or 0
+            local prev_c_energy_count = target_joker.ability.extra.c_energy_count or 0
+            
+            -- Determine if we're removing a colorless energy or a type energy
+            local removing_colorless = prev_c_energy_count > 0
+            
+            -- Standard scaling properties affected by energy
+            local scale_props = energy_whitelist
+            
+            -- Store current values before modification
+            local old_values = {}
+            for _, prop in ipairs(scale_props) do
+              if target_joker.ability.extra[prop] then
+                old_values[prop] = target_joker.ability.extra[prop]
+              end
+            end
+            
+            -- Decrease the appropriate energy counter
+            if removing_colorless then
+              target_joker.ability.extra.c_energy_count = prev_c_energy_count - 1
+            else
+              target_joker.ability.extra.energy_count = prev_energy_count - 1
+            end
+            
+            -- Recalculate the stats based on the new energy
+            for _, prop in ipairs(scale_props) do
+              if target_joker.ability.extra[prop] and target_joker.config.center.config.extra[prop] then
+                -- Get the base value from the center config
+                local base_value = target_joker.config.center.config.extra[prop]
+                
+                -- Calculate the energy contribution that's being removed
+                local energy_contribution = 0 
+				local energy_mod_value = energy_values[prop]
+                
+                if removing_colorless then
+                    energy_contribution = (base_value * 0.5) * (target_joker.ability.extra.escale or 1) * energy_mod_value
+                  else
+                    energy_contribution = base_value * (target_joker.ability.extra.escale or 1) * energy_mod_value
+                end
+                
+				-- Subtract the energy contribution from the current value
+                target_joker.ability.extra[prop] = target_joker.ability.extra[prop] - energy_contribution
+                
+                -- Update money_frac for proper display if it exists
+                if target_joker.ability[prop.."_frac"] then
+                  local new_frac = 0
+                  if prev_energy_count > 1 then
+                    new_frac = (prev_energy_count - 1) / prev_energy_count * target_joker.ability[prop.."_frac"]
+                  end
+                  target_joker.ability[prop.."_frac"] = new_frac
+                end
+              end
+            end
+            
+            energy_removed = energy_removed + 1
+            card_eval_status_text(target_joker, 'extra', nil, nil, nil, 
+              {message = localize("poke_energy_drain"), colour = G.C.RED})
+            break -- Take from only the first one of each type
+          end
+        end
+      end
+      
+      if energy_removed > 0 then
+        card.ability.extra.energy_removed = card.ability.extra.energy_removed + energy_removed
+        card_eval_status_text(card, 'extra', nil, nil, nil, 
+          {message = localize("poke_energy_absorb"), colour = G.C.BLUE})
+        card:juice_up(0.8, 0.5)
+      end
+    end
+    
+    -- Apply multiplier when scoring
+    if context.cardarea == G.jokers and context.scoring_hand then
+      if context.joker_main then
+        local current_mult = 1 + math.floor(card.ability.extra.energy_removed / card.ability.extra.energy_threshold) * card.ability.extra.Xmult_mod
+        
+        if current_mult > 1 then
+          return {
+            message = localize{type = 'variable', key = 'a_xmult', vars = {current_mult}},
+            colour = G.C.XMULT,
+            Xmult_mod = current_mult
+          }
+        end
+      end
+    end
+  end
+}
 -- Ho-oh 250
+local hooh = {
+    name = "hooh",
+    pos = {x = 2, y = 10}, 
+    soul_pos = { x = 3, y = 10},
+    config = {extra = {Xmult = 1.0}},
+    loc_vars = function(self, info_queue, center)
+        type_tooltip(self, info_queue, center)
+        info_queue[#info_queue+1] = G.P_CENTERS.e_polychrome
+        return {vars = {center.ability.extra.Xmult + (0.1 * (center.ability.extra.energy_count or 0))}}
+    end,
+    rarity = 4,
+    cost = 20,
+    stage = "Legendary",
+    ptype = "Fire",
+    atlas = "Pokedex2",
+    blueprint_compat = true,
+    calculate = function(self, card, context)
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if context.before and not context.blueprint and G.GAME.current_round.hands_played == 0 then
+                local suits = {Hearts = false, Spades = false, Clubs = false, Diamonds = false}
+                for _, played_card in ipairs(context.scoring_hand) do
+                    if played_card:is_suit("Hearts") then suits.Hearts = true end
+                    if played_card:is_suit("Spades") then suits.Spades = true end
+                    if played_card:is_suit("Clubs") then suits.Clubs = true end
+                    if played_card:is_suit("Diamonds") then suits.Diamonds = true end
+                end
+                
+                if suits.Hearts and suits.Spades and suits.Clubs and suits.Diamonds then
+                    local leftmost = context.scoring_hand[1]
+                    local edition = {polychrome = true}
+                    leftmost:set_edition(edition, true)
+                    if not leftmost.seal then
+                        local args = {guaranteed = true}
+                        local seal_type = SMODS.poll_seal(args)
+                        leftmost:set_seal(seal_type, true)
+                    end
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            leftmost:juice_up()
+                            return true
+                        end
+                    }))
+                end
+            end
+
+            if context.joker_main then
+                local polychrome_count = 0
+                for _, played_card in ipairs(context.scoring_hand) do
+                    if played_card.edition and played_card.edition.polychrome then
+                        polychrome_count = polychrome_count + 1
+                    end
+                end
+                
+                if polychrome_count > 0 then
+                    local base_mult = card.ability.extra.Xmult
+                    if card.ability.extra and card.ability.extra.energy_count then
+                        base_mult = base_mult + (0.1 * card.ability.extra.energy_count)
+                    end
+
+                    return {
+                        message = localize('poke_sacred_fire_ex'),
+                        colour = G.C.XMULT,
+                        Xmult_mod = 1 + (base_mult * polychrome_count)
+                    }
+                end
+            end
+        end
+    end
+}
 -- Celebi 251
 -- Treecko 252
 local treecko={
@@ -629,5 +827,5 @@ local swampert={
 -- Dustox 269
 -- Lotad 270
 return {name = "Pokemon Jokers 240-270", 
-        list = {blissey, treecko, grovyle, sceptile, torchic, combusken, blaziken, mudkip, marshtomp, swampert},
+        list = {blissey, lugia, hooh, treecko, grovyle, sceptile, torchic, combusken, blaziken, mudkip, marshtomp, swampert},
 }

@@ -52,6 +52,16 @@ SMODS.Rarity{
     end,
 }
 
+SMODS.Rarity{
+    key = "ultrabeast",
+    default_weight = 0,
+    badge_colour = HEX("2834AC"),
+    pools = {["Joker"] = true},
+    get_weight = function(self, weight, object_type)
+        return weight
+    end,
+}
+
 --Load helper function files
 local helper, load_error = SMODS.load_file("functions/pokeutils.lua")
 if load_error then

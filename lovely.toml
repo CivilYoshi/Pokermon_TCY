@@ -16,7 +16,7 @@ name = "pokermon.setup"
 target = "functions/misc_functions.lua"
 pattern = "legendary = G.C.RARITY[4],"
 position = "after"
-payload = "poke_safari = G.C.RARITY['poke_safari'], poke_mega = G.C.RARITY['poke_mega'],"
+payload = "poke_safari = G.C.RARITY['poke_safari'], poke_mega = G.C.RARITY['poke_mega'], poke_ultrabeast = G.C.RARITY['poke_ultrabeast'],"
 match_indent = true
 
 # Pokemon only functionality
