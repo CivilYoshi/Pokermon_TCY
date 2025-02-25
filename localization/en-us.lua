@@ -2682,7 +2682,7 @@ return {
 				name = 'Stakataka',
 				text = {
 					"Stacks {C:chips}Chips{} and {X:mult,C:white}X{} Mult for every",
-					"{C:attention}prime number{} up to your maximum deck size",
+					"{C:attention}prime number{} up to your full deck size",
 					"{br:3}text needs to be here to work",
 					"Next prime number: {C:attention}#5#{}",
 					"{C:inactive}(Currently: {}{C:chips}+#3#{} Chips, {X:mult,C:white}X#4#{}{C:inactive}){}"
@@ -2691,7 +2691,6 @@ return {
 			j_poke_blacephalon = {
 				name = "Blacephalon",
 				text = {
-					"{C:mult}+1{} discard", 
 					"Cards discarded this {c:attention}Ante{} stack {C:mult}+3{} Mult",
 					"{br:3}text needs to be here to work",
 					"If {C:attention}leftmost{} joker:", 

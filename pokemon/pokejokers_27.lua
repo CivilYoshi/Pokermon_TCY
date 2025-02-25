@@ -348,12 +348,11 @@ local blacephalon = {
    config = {extra = {
        mult = 1,             -- Current accumulated mult
        times_disabled = 0,   -- Track number of times disabled 
-       d_size = 1,          -- Number of extra discards provided
        Xmult = 1.0,         -- Current Xmult value
-	   Xmult_mod4 = 1.0,
+       Xmult_mod4 = 1.0,
        current_ante = 0,     -- Track current ante for resets
-       cards_discarded = 0,	   -- Track discards this ante
-	   debuff_real = 0
+       cards_discarded = 0,   -- Track discards this ante
+       debuff_real = 0
    }},
    loc_vars = function(self, info_queue, center)
        type_tooltip(self, info_queue, center)
@@ -373,35 +372,22 @@ local blacephalon = {
        if not card.ability.extra.cards_discarded then
            card.ability.extra.cards_discarded = 0
        end
-
        -- Reset card capabilities ONLY when ante increases
        if G.GAME.round_resets.ante ~= card.ability.extra.current_ante then
            card.ability.extra.current_ante = G.GAME.round_resets.ante  -- Store new ante
            card.ability.extra.cards_discarded = 0                      -- Reset discard counter
-		   card.ability.extra.debuff_real = 0
+           card.ability.extra.debuff_real = 0
            card.debuff = false                                         -- Enable card again
        end 
-	   
-	   if card.ability.extra.debuff_real == 1 then 
-	       card.debuff = true
-	   end
-
-       -- Force disabled state if the card was disabled this ante
-       -- if card.debuff and G.GAME.round_resets.ante == card.ability.extra.current_ante then
-           -- -- Hard force disabled state without increasing Xmult again
-           -- G.E_MANAGER:add_event(Event({
-               -- func = function()
-                   -- card.debuff = true
-                   -- return true
-               -- end
-           -- }))
-       -- end
-
+       
+       if card.ability.extra.debuff_real == 1 then 
+           card.debuff = true
+       end
+       
        -- Track discards
        if context.discard and not context.blueprint then
            card.ability.extra.cards_discarded = card.ability.extra.cards_discarded + 1
        end
-
        -- Main scoring logic
        if context.cardarea == G.jokers and context.scoring_hand and not context.blueprint then
            if context.joker_main and G.jokers.cards[1] == card and not card.debuff then
@@ -411,11 +397,10 @@ local blacephalon = {
                        card.debuff = true
                        card.ability.extra.times_disabled = card.ability.extra.times_disabled + 1
                        card.ability.extra.Xmult_mod4 = 1.0 + (card.ability.extra.times_disabled * 0.67)
-					   card.ability.extra.debuff_real = 1
+                       card.ability.extra.debuff_real = 1
                        return true
                    end
                }))
-
                return {
                    message = localize("poke_explosion_ex"),
                    colour = G.C.MULT,
@@ -423,18 +408,6 @@ local blacephalon = {
                    Xmult_mod4 = 1.0 + card.ability.extra.Xmult * card.ability.extra.Xmult_mod4
                }
            end
-       end
-   end,
-   add_to_deck = function(self, card, from_debuff)
-       if not from_debuff then
-           G.GAME.round_resets.discards = G.GAME.round_resets.discards + card.ability.extra.d_size
-           ease_discard(card.ability.extra.d_size)
-       end
-   end,
-   remove_from_deck = function(self, card, from_debuff)
-       if not from_debuff then
-           G.GAME.round_resets.discards = G.GAME.round_resets.discards - card.ability.extra.d_size
-           ease_discard(-card.ability.extra.d_size)
        end
    end
 }
