@@ -128,5 +128,5 @@ end
 -- Purrloin 509
 -- Liepard 510
 return {name = "Pokemon Jokers 481-510", 
-        list = {},
+        list = {heatran},
 }
