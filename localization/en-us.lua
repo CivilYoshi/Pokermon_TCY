@@ -2557,6 +2557,17 @@ return {
                   "{C:inactive,s:0.8}(Must have room)",
                 }
             },
+			j_poke_heatran = {
+				name = "Heatran",
+				text = {
+				"Create {C:attention}Immolate{} when a",
+				"{C:attention}Big Blind{} or {C:attention}Boss Blind{} is selected", 
+				"{br:2.5}text needs to be here to work",
+				"{C:attention}Steel Cards{} destroyed in your hand are {C:dark_edition}reforged{}",
+				"{br:2.5}text needs to be here to work",
+				"Trigger the {C:dark_edition}edition{} of {C:attention}Steel Cards{} that score from hand",
+				}
+			},
             j_poke_elgyem = {
                 name = "Elgyem",
                 text = {
@@ -3733,6 +3744,7 @@ return {
 			-- From spheal line
 			poke_rollout_ex = "Rollout!",
 			poke_miss_ex = "Miss...",
+			poke_magma_storm_ex = "Magma Storm!",
 			poke_boost_ex = "Beast Boost!",
 			poke_consume_ex = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             poke_darts_ex = "Darts!",
