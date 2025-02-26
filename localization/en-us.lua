@@ -2561,7 +2561,7 @@ return {
 				name = "Heatran",
 				text = {
 				"Create {C:attention}Immolate{} when a",
-				"{C:attention}Boss Blind{} is selected", 
+				"{C:attention}Big Blind{} or {C:attention}Boss Blind{} is selected", 
 				"{br:2.5}text needs to be here to work",
 				"Destroyed {C:attention}Steel Cards{} are {C:dark_edition}reforged{}",
 				"{br:2.5}text needs to be here to work",

@@ -23,7 +23,7 @@ local heatran = {
 calculate = function(self, card, context)
   -- Gain an immolate card every Big Blind and Boss blind
   if context.setting_blind and not card.getting_sliced then
-    if context.blind == (context.blind and context.blind.boss) then
+    if context.blind == G.P_BLINDS.bl_big or (context.blind and context.blind.boss) then
       if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
         local immolate_card = create_card('Spectral', G.consumeables, nil, nil, nil, nil, 'c_immolate')
         immolate_card:add_to_deck()
