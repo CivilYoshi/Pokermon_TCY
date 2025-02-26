@@ -105,7 +105,7 @@ local guzzlord = {
         odds_discard = 13,   -- 1/13 chance for discards
         Xmult_gain = 0.29,  -- X mult gained per consume
         mult_gain = 3,      -- Mult gained per consume
-        chip_gain = 9      -- Chips gained per consume
+        chip_gain = 11      -- Chips gained per consume
     }},
     loc_vars = function(self, info_queue, center)
         type_tooltip(self, info_queue, center)

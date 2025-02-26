@@ -2561,11 +2561,11 @@ return {
 				name = "Heatran",
 				text = {
 				"Create {C:attention}Immolate{} when a",
-				"{C:attention}Big Blind{} or {C:attention}Boss Blind{} is selected", 
+				"{C:attention}Boss Blind{} is selected", 
 				"{br:2.5}text needs to be here to work",
-				"{C:attention}Steel Cards{} destroyed in your hand are {C:dark_edition}reforged{}",
+				"Destroyed {C:attention}Steel Cards{} are {C:dark_edition}reforged{}",
 				"{br:2.5}text needs to be here to work",
-				"Trigger the {C:dark_edition}edition{} of {C:attention}Steel Cards{} that score from hand",
+				"Trigger the {C:dark_edition}edition{} of {C:attention}Steel Cards{} scored from hand",
 				}
 			},
             j_poke_elgyem = {
@@ -3746,7 +3746,7 @@ return {
 			poke_miss_ex = "Miss...",
 			poke_magma_storm_ex = "Magma Storm!",
 			poke_boost_ex = "Beast Boost!",
-			poke_consume_ex = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			poke_consume_ex = "Consume...",
             poke_darts_ex = "Darts!",
             poke_none = "None",
             poke_dawn_info1 = "(Next hand played sets hand type)",
